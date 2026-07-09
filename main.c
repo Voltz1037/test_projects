@@ -1,6 +1,11 @@
 #include <stdio.h>
 
 int main(void) {
-    printf("Hello, GitHub!\n");
+    int a=0;
+    int b=0;
+    printf("add\n");
+    scanf("%d",&a);
+    scanf("%d",&b);
+    printf("%d\n",a+b);
     return 0;
 }

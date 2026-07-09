@@ -1,6 +1,6 @@
 #include <stdio.h>
 
 int main(void) {
-    printf("Hello, Linux from WSL + VS Code!\n");
+    printf("Hello, GitHub!\n");
     return 0;
 }

@@ -165,10 +165,10 @@ void enter(){
     if((dispin[0]=='/')&&(dispin[1]=='e')&&(dispin[2]=='x')&&(dispin[3]=='i')&&(dispin[4]=='t')){
         et=1;
     }
-    /*for(int i=0;1<67;i++){
-    dispout[outline][i]=dispin[i];}
-    char dispin[66];
+    //for(int i=0;1<10;i++){
+    //dispout[outline][i]=dispin[i];
+    //dispin[i]=' ';}
     mvwprintw(window, 13, 2, "%s", dispin);
-    mvwprintw(window, 2, outline+2, "user:");
-    mvwprintw(window, 3, outline+2, "%s", dispout[outline]);*/
+    mvwprintw(window, outline+2, 1, "user:");
+    mvwprintw(window, outline+3, 1, "%s", dispin);
 }

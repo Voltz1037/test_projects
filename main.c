@@ -168,7 +168,12 @@ void enter(){
     //for(int i=0;1<10;i++){
     //dispout[outline][i]=dispin[i];
     //dispin[i]=' ';}
-    mvwprintw(window, 13, 2, "%s", dispin);
+    //mvwprintw(window, 13, 2, "%s", dispin);
     mvwprintw(window, outline+2, 1, "user:");
     mvwprintw(window, outline+3, 1, "%s", dispin);
+    mvwprintw(window, outline+4, 1, "Assistant:## `429` Too many Requests");
+    mvwprintw(window, outline+5, 1, "**服务器繁忙，请稍后再试。**");
+    outline=outline+4;
+    for(int j=x-1;j>0;j--){backspace();x--;}
+    x=2;
 }

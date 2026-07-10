@@ -10,10 +10,13 @@
 //#include <readdir.h>
 
 int key;
-int x = 9, y = 13; // 初始化光标位置
+int x = 2, y = 13; // 初始化光标位置
+char disp[66];
+//int ins=0;
 WINDOW* window;
 void printpath(WINDOW* window);
 void printtime(WINDOW* window);
+void instruction(int key);
 void* uscanf(void*){
  //循环等待用户输入
         while(key != 'q') {
@@ -33,6 +36,9 @@ void* uscanf(void*){
                                 wmove(window, y, x--);
                                 if(x==1){
                                     x=67;y--;
+                                    if(y==12){
+                                    y++;
+                                }
                                 }
                                 break;
                         case KEY_RIGHT:
@@ -43,7 +49,7 @@ void* uscanf(void*){
                                 break;
                         default:
                                 if(0<key&&key<255){
-                                waddch(window, key);
+                                instruction(key);
                                 x++;
                                 if(x==68){
                                     x=1;y++;
@@ -83,9 +89,10 @@ int main()
       // 在窗口中显示文本
     mvwprintw(window, 1, 1, "对话区：");
     mvwprintw(window, 10, 1, "--------------------------------------------------------------------");
+    mvwprintw(window, 11, 1, "状态栏：");
     printpath(window);
     mvwprintw(window, 12, 1, "--------------------------------------------------------------------");
-    mvwprintw(window, 13, 1, "输入区：");
+    mvwprintw(window, 13, 1, ">");
 
     pthread_t t1,t2;
     pthread_create(&t1,NULL,refresh_time,NULL);
@@ -122,6 +129,10 @@ if((path[0]=='/')&&(path[1]=='h')&&(path[2]=='o')&&(path[3]=='m')&&(path[4]=='e'
      path[0]='~';
 }
 attron(COLOR_PAIR(1));
-mvwprintw(window, 11, 1, "%s", path);
+mvwprintw(window, 11, 9, "%s", path);
 attroff(COLOR_PAIR(1));  // 关闭文本属性
+}
+void instruction(int key){
+disp[x-2]=key;
+mvwprintw(window, 13, 2, "%s", disp);
 }

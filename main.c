@@ -1,3 +1,4 @@
+//g++ main.c -o main -lncursesw
 #include<ncurses.h>
 #include <locale.h>
 #include <string.h>
@@ -9,7 +10,7 @@
 //#include <readdir.h>
 
 int key;
-int x = 2, y = 2; // 初始化光标位置
+int x = 9, y = 13; // 初始化光标位置
 WINDOW* window;
 void printpath(WINDOW* window);
 void printtime(WINDOW* window);
@@ -21,7 +22,7 @@ void* uscanf(void*){
                 switch (key){
                         case KEY_UP:
                                 wmove(window, y--, x);
-                                if(y==1){
+                                if(y==12){
                                     y++;
                                 }
                                 break;
@@ -41,16 +42,19 @@ void* uscanf(void*){
                                 }
                                 break;
                         default:
+                                if(0<key&&key<255){
                                 waddch(window, key);
                                 x++;
                                 if(x==68){
                                     x=1;y++;
                                 }
-                                break;
+                                break;}
+                                else break;
                 }
                 refresh();
                 wrefresh(window);
         }
+        endwin();
 }
 void* refresh_time(void*){
 while (1){
@@ -71,7 +75,7 @@ int main()
         noecho();            // 禁用回显  
         keypad(stdscr,1); // 启用功能键（如方向键）
         start_color(); // 启用颜色功能
-        
+        init_pair(1, COLOR_GREEN, COLOR_WHITE);
         init_pair(2, COLOR_BLACK, COLOR_WHITE);
         // 创建一个新窗口
     window = newwin(50, 70, 0, 0);
@@ -80,8 +84,8 @@ int main()
     mvwprintw(window, 1, 1, "对话区：");
     mvwprintw(window, 10, 1, "--------------------------------------------------------------------");
     printpath(window);
-
-
+    mvwprintw(window, 12, 1, "--------------------------------------------------------------------");
+    mvwprintw(window, 13, 1, "输入区：");
 
     pthread_t t1,t2;
     pthread_create(&t1,NULL,refresh_time,NULL);
@@ -102,13 +106,14 @@ void printtime(WINDOW* window)
     timedisplay=&time_str[11];
     strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", local_time);
     // 在窗口中显示时间
+    attron(COLOR_PAIR(2));
     mvwprintw(window, 11, 61, "%s",timedisplay);
+    attroff(COLOR_PAIR(2)); 
     wmove(window, y, x);
 }
 
 void printpath(WINDOW* window){
 char path[105];
-init_pair(1, COLOR_GREEN, COLOR_WHITE);
 getcwd(path,sizeof(path));
 if((path[0]=='/')&&(path[1]=='h')&&(path[2]=='o')&&(path[3]=='m')&&(path[4]=='e')){
     for(int i=0;i<101;i++){

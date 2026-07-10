@@ -96,5 +96,13 @@ void printtime(WINDOW* window)
 void printpath(WINDOW* window){
 char path[105];
 getcwd(path,sizeof(path));
+if((path[0]=='/')&&(path[1]=='h')&&(path[2]=='o')&&(path[3]=='m')&&(path[4]=='e')){
+    for(int i=0;i<101;i++){
+        path[i]=path[i+4];
+    }
+     path[0]='~';
+}
+//attron(COLOR_PAIR(1) | A_BOLD);
 mvwprintw(window, 11, 1, "%s", path);
+//attroff(COLOR_PAIR(1) | A_BOLD);  // 关闭文本属性
 }

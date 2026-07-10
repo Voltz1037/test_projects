@@ -10,8 +10,10 @@
 //#include <readdir.h>
 
 int key;
+int et=0;
 int x = 2, y = 13; // 初始化光标位置
 char dispout[9][66];
+int outline=0;
 char dispin[66];
 //int ins=0;
 WINDOW* window;
@@ -19,9 +21,10 @@ void printpath(WINDOW* window);
 void printtime(WINDOW* window);
 void instruction(int key);
 void backspace(void);
+void enter(void);
 void* uscanf(void*){
  //循环等待用户输入
-        while(key != 'q') {
+        while(!et) {
         
                 key = getch();
                 switch (key){
@@ -50,11 +53,14 @@ void* uscanf(void*){
                                 }
                                 break;
                         case KEY_BACKSPACE:
-                                backspace();
                                 wmove(window, y, x--);
                                 if(x==1){
                                     x=2;
                                 }
+                                backspace();
+                                break;
+                        case KEY_F(2):
+                                enter();
                                 break;
                         default:
                                 if(0<key&&key<255){
@@ -154,4 +160,15 @@ void backspace(){
         
     */
     mvwprintw(window, 13, 2, "%s", dispin);
+}
+void enter(){
+    if((dispin[0]=='/')&&(dispin[1]=='e')&&(dispin[2]=='x')&&(dispin[3]=='i')&&(dispin[4]=='t')){
+        et=1;
+    }
+    /*for(int i=0;1<67;i++){
+    dispout[outline][i]=dispin[i];}
+    char dispin[66];
+    mvwprintw(window, 13, 2, "%s", dispin);
+    mvwprintw(window, 2, outline+2, "user:");
+    mvwprintw(window, 3, outline+2, "%s", dispout[outline]);*/
 }

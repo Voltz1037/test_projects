@@ -59,7 +59,7 @@ void* uscanf(void*){
                                 }
                                 backspace();
                                 break;
-                        case KEY_F(2):
+                        case KEY_ENTER:
                                 enter();
                                 break;
                         default:
@@ -174,6 +174,7 @@ void enter(){
     mvwprintw(window, outline+4, 1, "Assistant:## `429` Too many Requests");
     mvwprintw(window, outline+5, 1, "**服务器繁忙，请稍后再试。**");
     outline=outline+4;
+    if(outline==8)outline=0;
     for(int j=x-1;j>0;j--){backspace();x--;}
     x=2;
 }

@@ -11,12 +11,14 @@
 
 int key;
 int x = 2, y = 13; // 初始化光标位置
-char disp[66];
+char dispout[9][66];
+char dispin[66];
 //int ins=0;
 WINDOW* window;
 void printpath(WINDOW* window);
 void printtime(WINDOW* window);
 void instruction(int key);
+void backspace(void);
 void* uscanf(void*){
  //循环等待用户输入
         while(key != 'q') {
@@ -45,6 +47,13 @@ void* uscanf(void*){
                                 wmove(window, y, x++);
                                 if(x==69){
                                     x=1;y++;
+                                }
+                                break;
+                        case KEY_BACKSPACE:
+                                backspace();
+                                wmove(window, y, x--);
+                                if(x==1){
+                                    x=2;
                                 }
                                 break;
                         default:
@@ -133,6 +142,16 @@ mvwprintw(window, 11, 9, "%s", path);
 attroff(COLOR_PAIR(1));  // 关闭文本属性
 }
 void instruction(int key){
-disp[x-2]=key;
-mvwprintw(window, 13, 2, "%s", disp);
+dispin[x-2]=key;
+mvwprintw(window, 13, 2, "%s", dispin);
+}
+void backspace(){
+    dispin[x-2]=' ';
+    /*for(int i=x-2;(dispin[i]>32)&&(dispin[i]<127);i++){
+        
+            dispin[i]=dispin[i+1];
+            }
+        
+    */
+    mvwprintw(window, 13, 2, "%s", dispin);
 }

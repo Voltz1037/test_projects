@@ -59,7 +59,7 @@ void* uscanf(void*){
                                 }
                                 backspace();
                                 break;
-                        case KEY_ENTER:
+                        case KEY_F(2):
                                 enter();
                                 break;
                         default:
